@@ -1,7 +1,3 @@
 export default function home(){
-    return "<h1>Home Page</h1>"
-}
-
-export function contact(){
-    return "<h1>Contact Page</h1>"
+    return "<h1>Home page</h1> <a href='/login'>login</a>"
 }

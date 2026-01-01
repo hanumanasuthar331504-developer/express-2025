@@ -1,25 +1,23 @@
 import express from 'express';
-import path from 'path';
 const app=express();
-const absPath=path.resolve('view');
 
-const publicPath=path.resolve('public');
+function checkRoute(req,res,next){
+    console.log("user is accessing "+req.url+" Page");
+    next();
+}
 
-app.use(express.static(publicPath))
+app.use(checkRoute)
 
 app.get("/",(req,res)=>{
-    res.sendFile(absPath+'/home.html')
-}) 
-app.get("/login",(req,res)=>{
-    res.sendFile(absPath+'/login.html')
-}) 
-app.get("/about",(req,res)=>{
-    res.sendFile(absPath+'/about.html')
-}) 
-
-app.use((req,res)=>{
-    res.status(404).sendFile(absPath+'/404.html')
+    res.send("Home Page")
 })
 
+app.get("/users",(req,res)=>{
+    res.send("Users Page")
+})
+
+app.get("/products",(req,res)=>{
+    res.send("Products Page")
+})
 
 app.listen(3200)

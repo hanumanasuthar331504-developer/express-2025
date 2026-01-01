@@ -1,23 +1,40 @@
 import express from 'express';
 const app=express();
 
-function checkRoute(req,res,next){
-    console.log("user is accessing "+req.url+" Page");
-    next();
+
+// function ageCheck(req,res,next){
+//     if(!req.query.age || req.query.age<18){
+//         res.send("Alert ! You can not access this page");
+//     }else{
+//         next();
+//     }
+// }
+
+// app.use(ageCheck)
+
+function ipCheck(req,res,next){
+    const ip=req.socket.remoteAddress;
+    console.log(ip);
+    if(ip.includes('192.168.1.66')){
+        res.send("Alert ! You can not access this page");
+    }else{
+        next();
+    }
 }
 
-app.use(checkRoute)
+app.use(ipCheck)
 
 app.get("/",(req,res)=>{
-    res.send("Home Page")
-})
+    res.send("<h1>Home page</h1>")
+});
 
-app.get("/users",(req,res)=>{
-    res.send("Users Page")
-})
+app.get("/login",(req,res)=>{
+    res.send("<h1>Login page</h1>")
+});
 
-app.get("/products",(req,res)=>{
-    res.send("Products Page")
-})
+app.get("/admin",(req,res)=>{
+    res.send("<h1>Admin page</h1>")
+});
 
-app.listen(3200)
+
+app.listen(3200);

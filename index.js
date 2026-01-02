@@ -1,36 +1,20 @@
 import express from 'express';
-import path from 'path'
-const app = express();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+import morgan from 'morgan';
+const app=express();
 
-app.get('/', (req, res) => {
-    const filePath = path.resolve('view/home.html');
-    res.sendFile(filePath);
+app.use(morgan('dev'))
+app.get('/',(req,res)=>{
+    res.send('Home page')
 });
 
-app.get('/login', (req, res) => {
-    res.send(`
-    <form action="/submit" method="get">
-    <input type="text" placeholder="enter email" name="email"/>
-    <br/>
-    <br/>
-    <input type="password" placeholder="enter password" name="password"/>
-    <br/>
-    <br/>
-    <button>Login</button>
-    </form>
-    `)
+app.get('/users',(req,res)=>{
+    res.send('Users pages me thoda change kia hai')
 });
 
-app.post('/submit', (req, res) => {
-    console.log("user login detail are : ", req.body);
-    console.log(typeof req.body)
-    res.send('<h1>Submit Page</h1>')
-});
-
-app.get('/users', (req, res) => {
-    res.send('<h1>Users Page</h1>')
+app.get("/wait",(req,res)=>{
+    setTimeout(()=>{
+        res.send('result after 1 second')
+    },1000)
 });
 
 app.listen(3200);

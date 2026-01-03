@@ -12,4 +12,9 @@ app.post('/submit-user',(req,res)=>{
 res.render('SubmitUser',req.body)
 });
 
+app.get('/users',(req,res)=>{
+    const users=['hanuman','suthar','sam','peter','bruce']
+    res.render('users',{users:users,isLogin:true});
+});
+
 app.listen(3200)

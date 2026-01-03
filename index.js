@@ -1,10 +1,15 @@
 import express from 'express';
 const app=express();
 
-
+app.use(express.urlencoded({extended:true}))
 app.set('view engine','ejs')
-app.get('/',(req,res)=>{
-res.render('home',{name:'Hanuman',ytChannel:'code step by step', age:29})
-})
+app.get('/add-user',(req,res)=>{
+res.render('addUser');
+});
+
+app.post('/submit-user',(req,res)=>{
+    console.log(req.body)
+res.render('SubmitUser',req.body)
+});
 
 app.listen(3200)

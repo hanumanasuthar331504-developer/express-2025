@@ -1,23 +1,25 @@
 import express from 'express';
+import userData from './users.json' with {type:'json'}
 const app=express();
 
 app.get('/',(req,res)=>{
-    const users=['hanuman','sam','peter','bruce'];
-    let data = `<ul>`;
-    for(let i=0;i<users.length;i++){
+    console.log(userData)
+    res.send(userData)
+})
 
-        data+=`<li><a href="user/${users[i]}">${users[i]}</a></li>`
-        console.log(users[i])
-    }
-    data+=`</ul>`
-    res.send(data);
+app.get('/user/:id',(req,res)=>{
+    const id = req.params.id;
+    console.log(id);
+    let filteredData=userData.filter((user)=>user.id==id)
+    res.send(filteredData);
 });
 
-app.get("/user/:name",(req,res)=>{
-    console.log(req.params.name);
-    const userName=req.params.name
-    res.send(`this is ${userName}'s profile page`);
+app.get('/username/:name',(req,res)=>{
+    const name = req.params.name;
+    console.log(name);
+    let filteredData=userData.filter((user)=>user.name.toLowerCase()==name.toLowerCase())
+    res.send(filteredData);
 });
 
 
-app.listen(3200)    
+app.listen(3200)

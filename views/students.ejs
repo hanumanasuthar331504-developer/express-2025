@@ -13,6 +13,7 @@
             <td>Name</td>
             <td>Age</td>
             <td>Gender</td>
+            <td>Id</td>
         </tr>
 
         <% students.forEach(student=>{ %>
@@ -20,6 +21,7 @@
             <td><%=student.name%></td>
             <td><%=student.profile.personal.age%></td>
             <td><%=student.profile.personal.gender%></td>
+            <td><a href="/ui/delete/<%=student._id%>">Delete</a></td>
         </tr>
         <% }) %>
 

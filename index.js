@@ -9,6 +9,7 @@ const client = new MongoClient(url)
 
 const app = express();
 app.use(express.urlencoded({extended:true}))
+app.use(express.json());
 app.set('view engine','ejs')
 await client.connect().then((connection) => {
     const db = connection.db(dbName);
@@ -27,7 +28,7 @@ await client.connect().then((connection) => {
     app.get('/add',(req,res)=>{
         res.render('add-student')
     })
-    
+
 
     app.post('/add-student', async(req, res) => {
         console.log(req.body);
@@ -38,6 +39,21 @@ await client.connect().then((connection) => {
         // res.send(students)
         res.send("data submitted")
     })
+
+app.post("/add-student-api",async(req,res)=>{
+    console.log(req.body);
+    const {name,profile,skills}=req.body;
+    if(!name || !profile || !skills){
+        res.send({message:"operation failed",success:false})
+        return false
+    }else{
+
+    }
+
+    const collection = db.collection("users");
+    const result = await collection.insertOne(req.body)
+    res.send({message:"data stored",success:true,result:result})
+})
 })
 
 
